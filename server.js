@@ -12,7 +12,7 @@ const app = express();
 
 // get the json format
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 // if API endpoints does not define, return 404 NOT found
 app.get("*", (req, res) => {
@@ -26,42 +26,42 @@ app.get("/app", (req, res) => {
 
 // Check rps endpoint returns {"player": "(rock|paper|scissors)""}
 app.post("/app/rps", (req, res) => {
-  res.status(200).send(rps());
+  res.status(200).send(JSON.stringify(rps()));
 });
 
 // Check rpssls endpoint returns {"player": "(rock|paper|scissors|lizard|spock)""}
 app.post("/app/rpsls", (req, res) => {
-  res.status(200).send(rpsls());
+  res.status(200).send(JSON.stringify(rpsls()));
 });
 
 // using URLEncoded query parameters (req.query):
 app.post("/app/rps/play", (req, res) => {
-  res.status(200).send(rps(req.query.shot));
+  res.status(200).send(JSON.stringify(rps(req.query.shot)));
 });
 
 // using URLEncoded query parameters (req.query):
 app.post("/app/rpsls/play", (req, res) => {
-  res.status(200).send(rpsls(req.query.user_choice));
+  res.status(200).send(JSON.stringify(rpsls(req.query.user_choice)));
 });
 
 // using JSON body requests (req.body):
 app.post("/app/rps/play", (req, res) => {
-  res.status(200).send(rps(req.body.shot));
+  res.status(200).send(JSON.stringify(rps(req.body.shot)));
 });
 
 // using JSON body requests (req.body):
 app.post("/app/rpsls/play", (req, res) => {
-  res.status(200).send(rpsls(req.body.shot));
+  res.status(200).send(JSON.stringify(rpsls(req.body.shot)));
 });
 
 // Define middleware to handle endpoint /app/rps/play/
 app.get("/app/rps/play/:shot", (req, res) => {
-  res.status(200).send(rps(req.params.shot));
+  res.status(200).send(JSON.stringify(rps(req.params.shot)));
 });
 
 // Define middleware to handle endpoint /app/rpsls/play/
 app.get("/app/rpsls/play/:shot", (req, res) => {
-  res.status(200).send(rpsls(req.params.shot));
+  res.status(200).send(JSON.stringify(rpsls(req.params.shot)));
 });
 
 app.listen(port, () => {
